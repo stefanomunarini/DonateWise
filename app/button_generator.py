@@ -9,7 +9,7 @@ app = Bottle()
 @app.route('/register', method='GET')
 def create():
     code = request.GET.get('code')
-    return template('./static/html/register_button.html')
+    return template('register_button.html')
 
 
 @app.route('/qr', method='GET')

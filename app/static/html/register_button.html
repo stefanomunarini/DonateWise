@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/registerButton.css">
+  <link rel="stylesheet" href="/css/registerButton.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
@@ -13,14 +13,14 @@
 <body>
   <div class="fullscreen-bg">
     <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
-        <source src="./video/background-video.mp4" type="video/mp4">
+        <source src="/video/background-video.mp4" type="video/mp4">
     </video>
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
     $("#getButtonCode").click(function(){
       $.get("http://127.0.0.1:8000/getButton", function (req, res) {
-        var htmlForButton = "<a href=\"" + res + "\" style=\"padding: 0.6em 1.3em; font-family: \"Averta\", sans-serif; font-weight: 700; color: #fff; background: #2E4369; border-radius: 20px;\" class=\"button transferwise\"><img src=\"./img/logo.png\" alt=\"flag-logo\">DonateWise</a>";
+        var htmlForButton = "<a href=\"" + res + "\" style=\"padding: 0.6em 1.3em; font-family: \"Averta\", sans-serif; font-weight: 700; color: #fff; background: #2E4369; border-radius: 20px;\" class=\"button transferwise\"><img src=\"/img/logo.png\" alt=\"flag-logo\">DonateWise</a>";
         $('#generatedCode').val(htmlForButton);
         $('#generatedCode').css("display", "block");
         $('#copyStuff').css("display", "block");
@@ -33,12 +33,12 @@ $(document).ready(function(){
 });
 </script>
 
-<img src="./img/logo1.png" class="logo"/>
+<img src="/img/logo1.png" class="logo"/>
 <div class="generate-button">
   <div class="info">
 
 
-    <img class="userImage" src="./img/pic.jpg"/>
+    <img class="userImage" src="/img/pic.jpg"/>
 
     <h2 class="welcome">Welcome</h2>
     <h3 class="name">John!</h3>

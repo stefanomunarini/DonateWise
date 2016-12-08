@@ -1,7 +1,7 @@
 import json
 import requests
 
-from bottle import Bottle, request, template, response
+from bottle import Bottle, request, template, response, url
 
 import private_variables
 import services
@@ -14,7 +14,7 @@ client_secret = private_variables.client_secret
 
 @app.route('/', method='GET')
 def webshop_demo():
-    return template('./static/html/webshop.html')
+    return template('webshop.html', url=url)
 
 
 @app.route('/donate', method='GET')
@@ -86,7 +86,7 @@ def create_donation():
 
     source_accounts = get_accounts(access_token, profile_id, target_currency)
 
-    return template('./static/html/donate.html', source_accounts=source_accounts)
+    return template('donate.html', source_accounts=source_accounts)
 
 
 @app.route('/submit_donation', method='POST')
@@ -142,4 +142,4 @@ def process_donation():
     final_transaction = create_transfer(access_token, source_account, target_recipient_id, quote_id, message)
     print(final_transaction)
 
-    return template('./static/html/success.html', transaction=final_transaction)
+    return template('success.html', transaction=final_transaction)
