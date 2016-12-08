@@ -8,7 +8,7 @@
     <title>Charity page</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="{{ static_urls(routename='css', filepath='/static/css/style.css') }}">
 </head>
 <body>
     <header>
@@ -43,8 +43,8 @@
                     <h2>Donate</h2>
                   </div>
                 </div>
-                    <a href="https://test-restgw.transferwise.com/oauth/authorize?response_type=code&client_id=f272f4a3-ecc1-44fe-b3f4-9a20e9433f4e&redirect_uri=http://localhost:8000/donate?target=3995210_GB_GBP_38285680_309648_Martin_Borek"
-                    class="button transferwise"><img src="/img/logo.png" alt="flag-logo">DonateWise</a>
+                    <a href="https://test-restgw.transferwise.com/oauth/authorize?response_type=code&client_id=f272f4a3-ecc1-44fe-b3f4-9a20e9433f4e&redirect_uri={{ url(routename='donate', target='3995210_GB_GBP_38285680_309648_Martin_Borek') }}"
+                    class="button transferwise"><img src="{{ static_urls(routename='img', filepath='/static/img/logo.png') }}" alt="flag-logo">DonateWise</a>
                     <div class="backers">
                       <h4>44</h4>
                       <h6>Backers</h6>

@@ -8,19 +8,19 @@
     <title>Create customized button for donations</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://localhost:8000/css/createButton.css">
+    <link rel="stylesheet" href="{{ url(routename='css', filepath='/static/css/createButton.css') }}">
 </head>
 <body>
     <header id="create-page">
         <div class="container-fluid text-center">
-            <a class="logo" href="#0"><img src="/img/logo1.png" alt="logo"></a>
+            <a class="logo" href="#0"><img src="{{ url(routename='img', filepath='/static/img/logo1.png') }}" alt="logo"></a>
         </div>
     </header>
     <main>
       <div class="fullscreen-bg">
         <div class="fullscreen-bg">
-          <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
-            <source src="/video/background-video.mp4" type="video/mp4">
+          <video loop muted autoplay poster="{{ url(routename='img', filepath='/static/video/videoframe.jpg') }}" class="fullscreen-bg__video">
+            <source src="{{ url(routename='video', filepath='/static/video/background-video.mp4') }}" type="video/mp4">
           </video>
         <div class="everything">
         <div class="container">
@@ -32,11 +32,11 @@
                 </div>
                 <div class="col-xs-12 col-sm-9 text-center inputs">
                     <h2>Transfer details</h2>
-                    <form action="http://localhost:8000/submit_donation" method="post">
+                    <form action="{{ url(routename='process_donation') }}" method="post">
                         <div class="form-group">
                             <select name="accounts" id="accounts">
                                 %for account in source_accounts:
-                                    <option value="{{account['account_id']}}-{{account['currency']}}">{{account['account_id']}}-{{account['currency']}}</option>
+                                    <option value="{{ account['account_id'] }}-{{ account['currency'] }}">{{ account['account_id'] }}-{{ account['currency'] }}</option>
                                 %end
                             </select>
                             <div>

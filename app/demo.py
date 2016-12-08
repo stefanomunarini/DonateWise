@@ -1,10 +1,10 @@
 import json
 import requests
 
-from bottle import Bottle, request, template, response, url
-
+from bottle import Bottle, request, template, response
 import private_variables
 import services
+from static_routes import app as static_files_app
 
 app = Bottle()
 
@@ -12,15 +12,15 @@ client_id = private_variables.client_id
 client_secret = private_variables.client_secret
 
 
-@app.route('/', method='GET')
+@app.route('/', method='GET', name='webshop_demo')
 def webshop_demo():
-    return template('webshop.html', url=url)
+    return template('webshop.html', static_urls=static_files_app.get_url, url=app.get_url)
 
 
-@app.route('/donate', method='GET')
-def create_donation():
+@app.route('/donate', method='GET', name='donate')
+def create_donation(target):
     code = request.GET.get('code')
-    target = request.GET.get('target')
+    # target = request.GET.get('target')
     target_account_id = target.split('_')[0]
     target_country = target.split('_')[1]
     target_currency = target.split('_')[2]
@@ -31,15 +31,21 @@ def create_donation():
     target_last_name = target.split('_')[6]
 
     def auth(code):
+        url = app.get_url(routename='donate', target='{target_acc_id}_{target_country}_{target_currency}_'
+                                                                   '{target_acc_number}_{target_sort_code}_{target_first_name}_{target_last_name}'.format(
+                target_acc_id=target_account_id, target_country=target_country, target_currency=target_currency,
+                target_acc_number=target_account_number, target_sort_code=target_sort_code,
+                target_first_name=target_first_name, target_last_name=target_last_name))
+        print(url)
         data = {
             'grant_type': 'authorization_code',
             'client_id': client_id,
             'code': code,
-            'redirect_uri': 'http://localhost:8000/donate?target={target_acc_id}_{target_country}_{target_currency}_'
-                            '{target_acc_number}_{target_sort_code}_{target_first_name}_{target_last_name}'.format(
+            'redirect_uri': app.get_url(routename='donate', target='{target_acc_id}_{target_country}_{target_currency}_'
+                                                                   '{target_acc_number}_{target_sort_code}_{target_first_name}_{target_last_name}'.format(
                 target_acc_id=target_account_id, target_country=target_country, target_currency=target_currency,
                 target_acc_number=target_account_number, target_sort_code=target_sort_code,
-                target_first_name=target_first_name, target_last_name=target_last_name)
+                target_first_name=target_first_name, target_last_name=target_last_name))
         }
         resp = requests.post('https://test-restgw.transferwise.com/oauth/token',
                              data=data,
@@ -86,10 +92,11 @@ def create_donation():
 
     source_accounts = get_accounts(access_token, profile_id, target_currency)
 
-    return template('donate.html', source_accounts=source_accounts)
+    return template('donate.html', source_accounts=source_accounts, url=app.get_url,
+                    static_urls=static_files_app.get_url)
 
 
-@app.route('/submit_donation', method='POST')
+@app.route('/submit_donation', method='POST', name='process_donation')
 def process_donation():
     target_country = request.cookies.get('target_country')
     target_currency = request.cookies.get('target_currency')
@@ -142,4 +149,5 @@ def process_donation():
     final_transaction = create_transfer(access_token, source_account, target_recipient_id, quote_id, message)
     print(final_transaction)
 
-    return template('success.html', transaction=final_transaction)
+    return template('success.html', transaction=final_transaction, url=app.get_url,
+                    static_urls=static_files_app.get_url)
