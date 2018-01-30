@@ -1,12 +1,12 @@
-#Application
+# Application
 
 
-###server.py
+### server.py
 
 This file contains the configurations of the web-server.
 
 
-###demo.py
+### demo.py
 
 This file contains the views used to demo our product.
 
@@ -25,16 +25,16 @@ This file contains the views used to demo our product.
 </ul>
 
 
-###generate_button.py
+### generate_button.py
 
 This file contains the views responsible for generating the embedded code for button and the qr-code.
 
 
-###static_files.py
+### static_files.py
 
 This file contains the views responsible for serving static files (CSS, fonts, img and videos).
 
 
-###services.py
+### services.py
 
 This file contains general functions used in the project.
